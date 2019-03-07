@@ -57,13 +57,26 @@ class rsyncd {
           }
         }
 
-        '7', '29': {
+        '7': {
           service { 'rsyncd':
             ensure     => running,
             enable     => true,
             hasstatus  => true,
             hasrestart => true,
             require    => Package['rsync'],
+          }
+        }
+
+        '29': {
+
+          realize(Package['rsync-daemon'])
+
+          service { 'rsyncd':
+            ensure     => running,
+            enable     => true,
+            hasstatus  => true,
+            hasrestart => true,
+            require    => Package['rsync-daemon'],
           }
         }
 
