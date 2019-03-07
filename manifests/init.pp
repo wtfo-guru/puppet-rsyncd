@@ -69,7 +69,7 @@ class rsyncd {
 
         '29': {
 
-          realize(Package['rsync-daemon'])
+          ensure_package('rsync-daemon', { 'ensure' => 'latest'})
 
           service { 'rsyncd':
             ensure     => running,
