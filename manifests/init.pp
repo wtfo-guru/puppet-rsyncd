@@ -17,7 +17,17 @@ class rsyncd {
 
   case $::osfamily {
 
-    'Debian','Archlinux': {
+    'Archlinux': {
+      service { 'rsyncd':
+        ensure     => running,
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true,
+        require    => Package['rsync'],
+      }
+    }
+
+    'Debian': {
       augeas { 'enable rsync service':
         changes => 'set RSYNC_ENABLE true',
         lens    => 'Shellvars.lns',
